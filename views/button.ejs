@@ -1,5 +1,14 @@
-<div id="iota-pay">
-    <p>Send <%= amount %>i to <%= address %></p> 
-    </br>
-    <img src="/qr/<%= address %>" alt="qrcode">
-</div> 
+<% include header %>
+<div class="col-sm-6 col-sm-offset-3">
+        <div class="panel panel-default" id="iota-pay">
+            <div class="panel-body" style="word-wrap: break-word;">
+                <h2>Send <%= displayAmount %> to:</h2> 
+                <p><%= address %> <a href="https://iotasear.ch/address/<%= address %>">(Search)</a></p> 
+                </br>
+                <div class="well">
+                    <img class="img-responsive center-block" src="/qr/<%= address %>" alt="qrcode">
+                </div>
+            </div>
+        </div> 
+</div>
+<% include footer %>

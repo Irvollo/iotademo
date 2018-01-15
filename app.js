@@ -3,6 +3,7 @@ var express = require("express");
 var IOTA = require("iota.lib.js")
 var qr = require("qr-image");
 var path = require("path")
+var parseAmount = require("./scripts/utils")
 
 
 //Init app
@@ -21,10 +22,12 @@ app.set("view engine", "ejs");
 app.get('/new/:amount/:address', function(req, res){
     var amount = req.param("amount");
     var address = req.param("address");
+    var displayAmount = parseAmount(amount);
 
     if (iota.valid.isAddress(address)) { 
         res.render("button", {
             amount: amount,
+            displayAmount: displayAmount,
             address: address
         });
     } else {
