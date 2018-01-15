@@ -1,9 +1,5 @@
 <div id="iota-pay">
-    Pay 100i 
-    <iframe class="xcomponent-component-frame xcomponent-visible" 
-        frameborder="0" 
-        allowtransparency="true" 
-        name="button" scrolling="no"
-        style="background-color: transparent;">
-    </iframe>
-</div>
+    <p>Send <%= amount %>i to <%= address %></p> 
+    </br>
+    <img src="/qr/<%= address %>" alt="qrcode">
+</div> 
