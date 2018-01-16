@@ -2,8 +2,10 @@
 var express = require("express");
 var IOTA = require("iota.lib.js")
 var qr = require("qr-image");
-var path = require("path")
-var parseAmount = require("./scripts/utils")
+var path = require("path");
+var parseAmount = require("./scripts/utils");
+var request = require("request");
+
 
 
 //Init app
@@ -24,12 +26,33 @@ app.get('/new/:amount/:address', function(req, res){
     var address = req.param("address");
     var displayAmount = parseAmount(amount);
 
+    //Call CoinMarketCap Api to fetch IOTA USD Price
+    var usdPrice;
+    var usdAmount;
+
+    //Check if the address is valid, if it is calls the USD price tracker.
     if (iota.valid.isAddress(address)) { 
-        res.render("button", {
-            amount: amount,
-            displayAmount: displayAmount,
-            address: address
+
+        request('https://api.coinmarketcap.com/v1/ticker/iota/', function(error, response, body){
+            if (error) {
+                //This should handle price not available
+                usdPrice = 0;
+            } else {
+                //Get the CMC price and calculate the total amount in USD to send of IOTa.
+                var json = JSON.parse(body);
+                usdPrice = json[0].price_usd;
+                // Converts iotas to Miotas
+                usdAmount = ((amount/1000000) * usdPrice).toFixed(2);
+                //After the price calculation calls the render and send the parameters
+                res.render("button", {
+                    amount: amount,
+                    displayAmount: displayAmount,
+                    usdAmount: usdAmount,
+                    address: address
+                });
+            }
         });
+    //If the input address is invalid returns an error
     } else {
         res.send("Invalid address")
     }

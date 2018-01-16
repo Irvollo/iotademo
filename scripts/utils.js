@@ -12,7 +12,7 @@ var parseAmount = function(amount) {
     } else if (amount >= 1000000000 && amount < 999999999999) {
         return (localeAmount/1000000000) + " Gi"
     } else if (amount >= 1000000000000 && amount < 999999999999999) {
-        return (localeAmount/1000000000) + " Ti"
+        return (localeAmount/1000000000000) + " Ti"
     }
 }
 

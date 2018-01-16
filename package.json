@@ -10,6 +10,7 @@
         "express": "^4.16.2",
         "iota.lib.js": "^0.4.6",
         "nodemon": "^1.14.11",
-        "qr-image": "^3.2.0"
+        "qr-image": "^3.2.0",
+        "request": "^2.83.0"
     }
 }
