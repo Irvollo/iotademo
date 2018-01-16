@@ -83,14 +83,15 @@ app.get("/transactions/:address",function(req, res){
     });
     */
 
-    iota.api.getTransactionsObjects(hashes, function(error, transactions){
+    /* iota.api.getTransactionsObjects(hashes, function(error, transactions){
         if (error) {
             console.log("Transaction error");
             res.json({error: error})
         } else { 
             res.json({transactions: transactions});
         }
-    })
+    }) */
+
 })
 
 //Init server

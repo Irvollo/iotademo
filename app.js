@@ -20,6 +20,8 @@ var app = express();
 app.set("views", path.resolve(__dirname,"views"));
 app.set("view engine", "ejs");
 
+//Set scripts path
+app.use('/scripts', express.static(__dirname + '/scripts'));
 
 app.get('/new/:amount/:address', function(req, res){
     var amount = req.param("amount");
@@ -59,6 +61,7 @@ app.get('/new/:amount/:address', function(req, res){
 
 });
 
+// Create a QR Code for the address
 app.get('/qr/:address', function(req,res){
 
     var address = req.param("address");
