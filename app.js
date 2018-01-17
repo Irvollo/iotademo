@@ -50,8 +50,9 @@ app.get('/new/:amount/:address', function(req, res){
                  TODO
                  Fetch the creation date from mongo and calculate the time left to realize the payment.
                  */
-                var creationDate = new Date("January 17, 2018 14:41:00");
+                var creationDate = new Date("January 17, 2018 17:40:30");
                 var time = utils.expirationDate(creationDate);
+                var listen = utils.listeningTransaction(time);
 
                 //After the price calculation calls the render and send the parameters
                 res.render("button", {
@@ -59,7 +60,8 @@ app.get('/new/:amount/:address', function(req, res){
                     displayAmount: displayAmount,
                     usdAmount: usdAmount,
                     address: address,
-                    time: time
+                    time: time,
+                    listen: listen
                 });
             }
         });

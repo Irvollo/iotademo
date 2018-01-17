@@ -24,6 +24,13 @@ module.exports = {
         var currentDate = new Date();
         return (expirationDate - currentDate)/1000;
         
+    },
+    listeningTransaction: function(time) {
+        if (time >= 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
