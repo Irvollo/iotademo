@@ -3,7 +3,7 @@ var express = require("express");
 var IOTA = require("iota.lib.js")
 var qr = require("qr-image");
 var path = require("path");
-var parseAmount = require("./scripts/utils");
+var utils = require("./scripts/utils");
 var request = require("request");
 
 
@@ -26,7 +26,7 @@ app.use('/scripts', express.static(__dirname + '/scripts'));
 app.get('/new/:amount/:address', function(req, res){
     var amount = req.param("amount");
     var address = req.param("address");
-    var displayAmount = parseAmount(amount);
+    var displayAmount = utils.parseAmount(amount);
 
     //Call CoinMarketCap Api to fetch IOTA USD Price
     var usdPrice;
@@ -45,12 +45,21 @@ app.get('/new/:amount/:address', function(req, res){
                 usdPrice = json[0].price_usd;
                 // Converts iotas to Miotas
                 usdAmount = ((amount/1000000) * usdPrice).toFixed(2);
+
+                /*
+                 TODO
+                 Fetch the creation date from mongo and calculate the time left to realize the payment.
+                 */
+                var creationDate = new Date("January 17, 2018 14:41:00");
+                var time = utils.expirationDate(creationDate);
+
                 //After the price calculation calls the render and send the parameters
                 res.render("button", {
                     amount: amount,
                     displayAmount: displayAmount,
                     usdAmount: usdAmount,
-                    address: address
+                    address: address,
+                    time: time
                 });
             }
         });
